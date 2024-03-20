@@ -1,19 +1,19 @@
 <?php declare(strict_types = 1);
 
-namespace MailPoet\EmailEditor\Engine\Renderer;
+namespace MailPoet\EmailEditor\Engine\Renderer\ContentRenderer;
 
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\EmailEditor\Engine\Renderer\Postprocessors\HighlightingPostprocessor;
-use MailPoet\EmailEditor\Engine\Renderer\Postprocessors\Postprocessor;
-use MailPoet\EmailEditor\Engine\Renderer\Postprocessors\VariablesPostprocessor;
-use MailPoet\EmailEditor\Engine\Renderer\Preprocessors\BlocksWidthPreprocessor;
-use MailPoet\EmailEditor\Engine\Renderer\Preprocessors\CleanupPreprocessor;
-use MailPoet\EmailEditor\Engine\Renderer\Preprocessors\Preprocessor;
-use MailPoet\EmailEditor\Engine\Renderer\Preprocessors\SpacingPreprocessor;
-use MailPoet\EmailEditor\Engine\Renderer\Preprocessors\TopLevelPreprocessor;
-use MailPoet\EmailEditor\Engine\Renderer\Preprocessors\TypographyPreprocessor;
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\HighlightingPostprocessor;
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Postprocessor;
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\VariablesPostprocessor;
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\BlocksWidthPreprocessor;
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\CleanupPreprocessor;
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Preprocessor;
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\SpacingPreprocessor;
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\TopLevelPreprocessor;
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\TypographyPreprocessor;
 
 class ProcessManager {
   /** @var Preprocessor[] */
@@ -42,12 +42,13 @@ class ProcessManager {
 
   /**
    * @param array $parsedBlocks
-   * @param array{width: string, background: string, padding: array{bottom: string, left: string, right: string, top: string}} $layoutStyles
+   * @param array{contentSize: string} $layout
+   * @param array{spacing: array{padding: array{bottom: string, left: string, right: string, top: string}, blockGap: string}} $styles
    * @return array
    */
-  public function preprocess(array $parsedBlocks, array $layoutStyles): array {
+  public function preprocess(array $parsedBlocks, array $layout, array $styles): array {
     foreach ($this->preprocessors as $preprocessor) {
-      $parsedBlocks = $preprocessor->preprocess($parsedBlocks, $layoutStyles);
+      $parsedBlocks = $preprocessor->preprocess($parsedBlocks, $layout, $styles);
     }
     return $parsedBlocks;
   }
