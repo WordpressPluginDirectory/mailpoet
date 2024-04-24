@@ -16,11 +16,15 @@ body {
   width: 100%;
 }
 
-table,
-td {
-  border-collapse: collapse;
-  mso-table-lspace: 0;
-  mso-table-rspace: 0;
+.email_content_wrapper {
+  direction: ltr;
+  font-size: inherit;
+  text-align: left;
+}
+
+.email_footer {
+  direction: ltr;
+  text-align: center;
 }
 
 /* https://www.emailonacid.com/blog/article/email-development/tips-for-coding-email-preheaders */
@@ -35,6 +39,7 @@ td {
   mso-hide: all;
   opacity: 0;
   overflow: hidden;
+  -webkit-text-size-adjust: none;
   visibility: hidden;
 }
 
