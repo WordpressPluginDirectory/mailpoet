@@ -3,7 +3,7 @@ Contributors: mailpoet, woocommerce, automattic
 Tags: email marketing, post notification, woocommerce emails, email automation, newsletter
 Requires at least: 6.5
 Tested up to: 6.6
-Stable tag: 5.3.5
+Stable tag: 5.3.7
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -230,7 +230,8 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 
 == Changelog ==
 
-= 5.3.5 - 2024-10-30 =
-* Fixed: Post notifications now correctly select new posts by ensuring consistent UTC date comparison, preventing posts published within certain time zones from being skipped after a notification is sent.
+= 5.3.7 - 2024-11-12 =
+* Fixed: detecting table index existence in DB migrations for MySQL 5;
+* Fixed: re-activation of welcome emails with long history may take long time or fail.
 
 [See the changelog for all versions.](https://github.com/mailpoet/mailpoet/blob/trunk/mailpoet/CHANGELOG.md)
