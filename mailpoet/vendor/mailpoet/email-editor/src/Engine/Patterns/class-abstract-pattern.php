@@ -1,20 +1,21 @@
 <?php
 declare(strict_types = 1);
-namespace MailPoet\EmailEditor\Engine\Patterns\Library;
+namespace MailPoet\EmailEditor\Engine\Patterns;
 if (!defined('ABSPATH')) exit;
-use MailPoet\EmailEditor\Utils\Cdn_Asset_Url;
 abstract class Abstract_Pattern {
- protected $cdn_asset_url;
+ protected $name = '';
+ protected $namespace = '';
  protected $block_types = array();
  protected $template_types = array();
  protected $inserter = true;
  protected $source = 'plugin';
- protected $categories = array( 'mailpoet' );
+ protected $categories = array();
  protected $viewport_width = 620;
- public function __construct(
- Cdn_Asset_Url $cdn_asset_url
- ) {
- $this->cdn_asset_url = $cdn_asset_url;
+ public function get_name(): string {
+ return $this->name;
+ }
+ public function get_namespace(): string {
+ return $this->namespace;
  }
  public function get_properties(): array {
  return array(
