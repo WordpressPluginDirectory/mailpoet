@@ -1,13 +1,13 @@
 <?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
-namespace MailPoet\Subscription\Captcha\Validator;
+namespace MailPoet\Captcha\Validator;
 
 if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Captcha\ReCaptchaValidator as Validator;
 
-class RecaptchaValidator implements CaptchaValidator {
+class RecaptchaValidator {
 
   /** @var Validator */
   private $validator;

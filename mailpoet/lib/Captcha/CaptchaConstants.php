@@ -1,6 +1,6 @@
 <?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
-namespace MailPoet\Subscription\Captcha;
+namespace MailPoet\Captcha;
 
 if (!defined('ABSPATH')) exit;
 
@@ -14,5 +14,9 @@ class CaptchaConstants {
 
   public static function isReCaptcha(?string $captchaType) {
     return in_array($captchaType, [self::TYPE_RECAPTCHA, self::TYPE_RECAPTCHA_INVISIBLE]);
+  }
+
+  public static function isBuiltIn(?string $captchaType) {
+    return $captchaType === self::TYPE_BUILTIN;
   }
 }

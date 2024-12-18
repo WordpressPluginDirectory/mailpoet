@@ -1,20 +1,20 @@
 <?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
-namespace MailPoet\Subscription\Captcha\Validator;
+namespace MailPoet\Captcha\Validator;
 
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Captcha\CaptchaPhrase;
+use MailPoet\Captcha\CaptchaUrlFactory;
 use MailPoet\Subscribers\SubscriberIPsRepository;
 use MailPoet\Subscribers\SubscribersRepository;
-use MailPoet\Subscription\Captcha\CaptchaPhrase;
-use MailPoet\Subscription\SubscriptionUrlFactory;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
 
-class BuiltInCaptchaValidator implements CaptchaValidator {
-  /** @var SubscriptionUrlFactory */
-  private $subscriptionUrlFactory;
+class CaptchaValidator {
+  /** @var CaptchaUrlFactory */
+  private $captchaUrlFactory;
 
   /** @var CaptchaPhrase */
   private $captchaPhrase;
@@ -29,13 +29,13 @@ class BuiltInCaptchaValidator implements CaptchaValidator {
   private $subscribersRepository;
 
   public function __construct(
-    SubscriptionUrlFactory $subscriptionUrlFactory,
+    CaptchaUrlFactory $urlFactory,
     CaptchaPhrase $captchaPhrase,
     WPFunctions $wp,
     SubscriberIPsRepository $subscriberIPsRepository,
     SubscribersRepository $subscribersRepository
   ) {
-    $this->subscriptionUrlFactory = $subscriptionUrlFactory;
+    $this->captchaUrlFactory = $urlFactory;
     $this->captchaPhrase = $captchaPhrase;
     $this->wp = $wp;
     $this->subscriberIPsRepository = $subscriberIPsRepository;
@@ -58,7 +58,7 @@ class BuiltInCaptchaValidator implements CaptchaValidator {
       throw new ValidationError(
         __('Please fill in the CAPTCHA.', 'mailpoet'),
         [
-          'redirect_url' => $this->subscriptionUrlFactory->getCaptchaUrl($sessionId),
+          'redirect_url' => $this->captchaUrlFactory->getCaptchaUrlForMPForm($sessionId),
         ]
       );
     }
@@ -68,7 +68,7 @@ class BuiltInCaptchaValidator implements CaptchaValidator {
       throw new ValidationError(
         __('Please regenerate the CAPTCHA.', 'mailpoet'),
         [
-          'redirect_url' => $this->subscriptionUrlFactory->getCaptchaUrl($sessionId),
+          'redirect_url' => $this->captchaUrlFactory->getCaptchaUrlForMPForm($sessionId),
         ]
       );
     }
@@ -111,7 +111,6 @@ class BuiltInCaptchaValidator implements CaptchaValidator {
     $subscriptionCaptchaWindow = $this->wp->applyFilters('mailpoet_subscription_captcha_window', MONTH_IN_SECONDS);
 
     $subscriberIp = Helpers::getIP();
-
     if (empty($subscriberIp)) {
       return false;
     }
