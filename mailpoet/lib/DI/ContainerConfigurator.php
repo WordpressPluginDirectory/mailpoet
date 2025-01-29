@@ -222,6 +222,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Triggers\Orders\OrderCancelledTrigger::class)->setPublic(true)->setShared(false);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Triggers\BuysAProductTrigger::class)->setPublic(true)->setShared(false);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Triggers\BuysFromACategoryTrigger::class)->setPublic(true)->setShared(false);
+    $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Triggers\BuysFromATagTrigger::class)->setPublic(true)->setShared(false);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Subjects\OrderSubject::class)->setPublic(true)->setShared(false);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Subjects\OrderStatusChangeSubject::class)->setPublic(true)->setShared(false);
     $container->autowire(\MailPoet\Automation\Integrations\WooCommerce\Subjects\CustomerSubject::class)->setPublic(true)->setShared(false);
@@ -690,7 +691,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     // Tags
     $container->autowire(\MailPoet\Tags\TagRepository::class)->setPublic(true);
     // CAPTCHA
-    $container->autowire(\MailPoet\Config\HooksReCaptcha::class)->setPublic(true);
+    $container->autowire(\MailPoet\Captcha\ReCaptchaHooks::class)->setPublic(true);
     $container->autowire(\MailPoet\Captcha\ReCaptchaValidator::class)->setPublic(true);
     $container->autowire(\MailPoet\Captcha\ReCaptchaRenderer::class)->setPublic(true);
     return $container;

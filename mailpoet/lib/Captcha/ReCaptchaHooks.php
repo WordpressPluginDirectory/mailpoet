@@ -1,18 +1,16 @@
 <?php declare(strict_types = 1);
 
-namespace MailPoet\Config;
+namespace MailPoet\Captcha;
 
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Captcha\CaptchaConstants;
-use MailPoet\Captcha\ReCaptchaRenderer;
-use MailPoet\Captcha\ReCaptchaValidator;
+use MailPoet\Config\Env;
 use MailPoet\Config\Renderer as BasicRenderer;
 use MailPoet\Settings\SettingsController;
 use MailPoet\WP\Functions as WPFunctions;
 
-class HooksReCaptcha {
+class ReCaptchaHooks {
 
   const RECAPTCHA_LIB_URL = 'https://www.google.com/recaptcha/api.js';
 
@@ -46,9 +44,7 @@ class HooksReCaptcha {
   }
 
   public function isEnabled(): bool {
-    // A transient code to enable incremental development of the feature.
-    // Later when a setting is introduced, this function will be adjusted.
-    if (!in_array(getenv('MP_ENV'), ['development', 'test'])) {
+    if (!$this->settings->get(CaptchaConstants::ON_REGISTER_FORMS_SETTING_NAME, false)) {
       return false;
     }
 
